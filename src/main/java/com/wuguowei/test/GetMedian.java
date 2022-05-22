@@ -1,62 +1,38 @@
 package com.wuguowei.test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.PriorityQueue;
 
 public class GetMedian {
-    private static final ArrayList<Integer> arr = new ArrayList<>();
-    private static int inputSize = 0;
+    PriorityQueue<Integer> l = new PriorityQueue<>((a, b) -> b - a);
+    PriorityQueue<Integer> r = new PriorityQueue<>((a, b) -> a - b);
 
-    public static void main(String[] args) {
+    public void addNum(int num) {
+        int s1 = l.size(), s2 = r.size();
 
-        Scanner sc = new Scanner(System.in);
-
-        while (sc.hasNext()) {
-            int input = sc.nextInt();
-            inputSize++;
-
-            appendNumber(input);
-            System.out.println(getMedian());
+        if (s1 == s2) {
+            if (r.isEmpty() || num < r.peek()) {
+                l.add(num);
+            } else {
+                l.add(r.poll());
+                r.add(num);
+            }
+        } else {
+            if (l.peek() <= num) {
+                r.add(num);
+            } else {
+                r.add(l.poll());
+                l.add(num);
+            }
         }
     }
 
-    // 获取中位数
-    public static double getMedian() {
-        if (inputSize == 0) {
-            return 0;
-        }
-        // 偶数
-        if (inputSize % 2 == 0) {
-            int left = arr.get(inputSize / 2 - 1);
-            int right = arr.get(inputSize / 2);
-            return (left + right) * 1.0 / 2;
-        }
-        // 奇数
-        else {
-            return arr.get(inputSize / 2);
-        }
-    }
+    public double findMedian() {
+        int s1 = l.size(), s2 = r.size();
 
-    // 先把新元素添加到arrayList, 再按从小到大排序
-    public static void appendNumber(int a) {
-        arr.add(a);
-
-        // arrayList 转 int[]
-        int[] tmp = new int[inputSize];
-        int index = 0;
-        for (int tmpArr : arr) {
-            tmp[index] = tmpArr;
-            index++;
-        }
-
-        // 排序
-        Arrays.sort(tmp);
-
-        // int[]转arrayList
-        arr.clear();
-        for (int i = 0; i <= index - 1; i++) {
-            arr.add(tmp[i]);
+        if (s1 == s2) {
+            return (l.peek() + r.peek()) / 2.0;
+        } else {
+            return l.peek();
         }
     }
 }
