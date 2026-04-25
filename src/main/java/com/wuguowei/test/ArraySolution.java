@@ -36,7 +36,7 @@ public class ArraySolution
     for (int i = 3; i < n + 1; i++) {
       result = left + middle + right;
       // 计算完成后, 变量统一向右移动
-      //// 数列0，1，1，2，4，7，13，24，44...
+      // 数列0，1，1，2，4，7，13，24，44...
       int tmp = middle;
       middle = right;
       right = result;

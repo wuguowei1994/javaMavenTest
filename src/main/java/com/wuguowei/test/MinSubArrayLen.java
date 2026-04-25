@@ -1,6 +1,7 @@
 package com.wuguowei.test;
 
-public class Solution {
+public class MinSubArrayLen
+{
     public int minSubArrayLen(int target, int[] nums) {
         int n = nums.length;
         int left = 0;
@@ -25,6 +26,6 @@ public class Solution {
     public static void main(String[] args) {
         int target = 7;
         int[] nums = new int[]{1, 3, 2, 1, 6};
-        System.out.println(new Solution().minSubArrayLen(target, nums));
+        System.out.println(new MinSubArrayLen().minSubArrayLen(target, nums));
     }
 }
